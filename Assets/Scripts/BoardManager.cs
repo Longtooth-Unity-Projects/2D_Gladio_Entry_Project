@@ -10,8 +10,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int _rows = 256;
     [SerializeField] private int _columns = 256;
     [SerializeField] private int _bordersize = 1;
-    [SerializeField] private int _numberOfProducers = 3;
-    [SerializeField] private int _numberOfConsumers = 2;
+    [SerializeField] private int _numberOfProducers = 2;
+    [SerializeField] private int _numberOfConsumers = 5;
 
     public int Rows { get { return _rows; }  }
     public int Columns { get { return _columns; } }

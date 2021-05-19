@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686822348685099778}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -46,8 +46,8 @@ MonoBehaviour:
   _rows: 256
   _columns: 256
   _bordersize: 1
-  _numberOfProducers: 3
-  _numberOfConsumers: 2
+  _numberOfProducers: 2
+  _numberOfConsumers: 5
   _grassTile: {fileID: 11400000, guid: 8ff7f74caa847504aa980999060a5bc9, type: 2}
   _roadTile: {fileID: 11400000, guid: 0fd877de3c52fc5489064d14a301340b, type: 2}
   _foundationTile: {fileID: 11400000, guid: 8abb9be16092fc44098bff2acbd70307, type: 2}

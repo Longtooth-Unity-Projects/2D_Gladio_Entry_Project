@@ -49,10 +49,12 @@ public class Transport : MonoBehaviour
     private IEnumerator TraverseRoute()
     {
         _producerAccount = _homeBase.GetClosestProducerAccount();
+        _producerAccount.Producer.OutOfResources += AbortMission;
 
         _goal = _producerAccount.Producer.CellPosition;
         CalculatePath(_goal);
         yield return StartCoroutine(FollowPathRoutine(PickupResources));
+        _producerAccount.Producer.OutOfResources -= AbortMission;
 
         _goal = _homeBase.CellPosition;
         CalculatePath(_goal);
@@ -110,6 +112,15 @@ public class Transport : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
+    private void AbortMission()
+    {
+        StopAllCoroutines();
+
+        _goal = _homeBase.CellPosition;
+        CalculatePath(_goal);
+        StartCoroutine(FollowPathRoutine(DeliverResources));
+    }
 
     /********************** utility methods  ******************************/
     private void TeleportToHomeBase()

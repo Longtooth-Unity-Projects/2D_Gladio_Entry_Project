@@ -56,6 +56,7 @@ public class ConsumerStructure : Structure
     {
         //currently, we only want to register with the closest customer
         _producerAccounts[0].Producer.RegisterCustomer(this);
+        _producerAccounts[0].Producer.OutOfResources += FindNewProducer;
     }
 
 
@@ -85,6 +86,18 @@ public class ConsumerStructure : Structure
     public void DepositResources(int amountToDeposit)
     {
         ResourceAmount += amountToDeposit;
+    }
+
+
+    private void FindNewProducer()
+    {
+        Debug.Log($"FindNew: {_producerAccounts.Count}");
+        _producerAccounts[0].Producer.OutOfResources -= FindNewProducer;
+        _producerAccounts.RemoveAt(0);
+        Debug.Log($"FindNew: {_producerAccounts.Count}");
+
+        GenerateProducerAccounts();
+        RegisterWithProducer();
     }
 
     /********************** utility methods ********************************/

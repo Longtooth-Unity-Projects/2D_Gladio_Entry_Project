@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProducerStructure : Structure
 {
+    public Action OutOfResources;
     public static ulong NumOfProducers { get; private set; }
     public ulong Id { get; private set; }
 
@@ -31,6 +33,7 @@ public class ProducerStructure : Structure
     {
         Id = 0;
         --NumOfProducers;
+        OutOfResources?.Invoke();
     }
 
 

@@ -43,6 +43,7 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
     private void Start()
     {
         BoardManager boardManager = FindObjectOfType<BoardManager>();
+
         boardRows = (float)boardManager.Rows;
         boardColumns = (float)boardManager.Columns;
 
