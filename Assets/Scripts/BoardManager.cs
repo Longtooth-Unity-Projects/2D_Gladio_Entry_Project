@@ -13,6 +13,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int _numberOfProducers = 3;
     [SerializeField] private int _numberOfConsumers = 2;
 
+    public int Rows { get { return _rows; }  }
+    public int Columns { get { return _columns; } }
+
     private Dictionary<TileBase, ScriptableTileWrapper> dataFromTiles;
 
     //cached references
@@ -41,30 +44,24 @@ public class BoardManager : MonoBehaviour
         BuildTiledataDictionary();
 
         availableTiles = new List<Vector3Int>(_rows * _columns);
-
-        SetupRandomField();
+        _producerArray = new ProducerStructure[_numberOfProducers];
+        _consumerArray = new ConsumerStructure[_numberOfConsumers];
 
         pathfinder = FindObjectOfType<AStarPathfinder>();
-        _producerArray = FindObjectsOfType<ProducerStructure>();
-        _consumerArray = FindObjectsOfType<ConsumerStructure>();
 
-        //BuildRoads();
+        SetupRandomField();
+        BuildRoads();
     }
 
 
     void Start()
     {
         //TODO auto center camera
-        BuildRoads();
+
         //DebugPath();
 
     }//end of Start
 
-
-    private void Update()
-    {
-        DebugInput();
-    }
 
 
 
@@ -84,8 +81,6 @@ public class BoardManager : MonoBehaviour
 
     private void SetupRandomField()
     {
-        Debug.Log($"Before Field Setup: {_tilemap.size}");
-
         int borderMin = _bordersize - 1;
         int rowMaxValue = _rows - _bordersize;
         int colMaxValue = _columns - _bordersize;
@@ -102,25 +97,22 @@ public class BoardManager : MonoBehaviour
             }
 
         
-        //set up structures
+        //set up producers
         for (int i = 0; i < _numberOfProducers; ++i)
         {
             Vector3Int spawnCell = availableTiles[Random.Range(0, availableTiles.Count - 1)];
-            SpawnStructure(_producerPrefab, spawnCell);
+            _producerArray[i] = SpawnStructure(_producerPrefab, spawnCell) as ProducerStructure;
         }
-
+        //set up consumers
         for (int i = 0; i < _numberOfConsumers; ++i)
         {
             Vector3Int spawnCell = availableTiles[Random.Range(0, availableTiles.Count - 1)];
-            SpawnStructure(_consumerPrefab, spawnCell);
+            _consumerArray[i] = SpawnStructure(_consumerPrefab, spawnCell) as ConsumerStructure;
         }
-
-        Debug.Log($"After Field Setup: {_tilemap.size}");
-        Debug.Log($"available tiles: {availableTiles.Count}");
     }
 
 
-    public void SpawnStructure(Structure structureToSpawn, Vector3 spawnPosition)
+    public Structure SpawnStructure(Structure structureToSpawn, Vector3 spawnPosition)
     {
         //we want a foundation of walkable tiles dictated by the structures foundation radius
         Vector3Int foundationCenterCell = _tilemap.WorldToCell(spawnPosition);
@@ -143,11 +135,14 @@ public class BoardManager : MonoBehaviour
 
         Structure structure = Instantiate(structureToSpawn);
         structure.transform.position = spawnPosition;
+        structure.CellPosition = _tilemap.WorldToCell(spawnPosition);
+
+        return structure;
     }
 
-    public void SpawnStructure(Structure structureToSpawn, Vector3Int spawnPosition)
+    public Structure SpawnStructure(Structure structureToSpawn, Vector3Int spawnPosition)
     {
-        SpawnStructure(structureToSpawn, _tilemap.GetCellCenterWorld(spawnPosition));
+        return SpawnStructure(structureToSpawn, _tilemap.GetCellCenterWorld(spawnPosition));
     }
 
 
@@ -166,10 +161,7 @@ public class BoardManager : MonoBehaviour
                 {
                     currentPos.x += xDirection;
                     if (_tilemap.GetTile(currentPos).name != _foundationTile.name)
-                    {
-                        Debug.Log($"Settile: {currentPos}");
                         _tilemap.SetTile(currentPos, _roadTile);
-                    }
 
                 }
                 while (currentPos.y != producer.CellPosition.y)
@@ -240,6 +232,12 @@ public class BoardManager : MonoBehaviour
         return dataFromTiles[tileAtPos].isWalkable;
     }
 
+
+    private void DebugInits()
+    {
+        _producerArray = FindObjectsOfType<ProducerStructure>();
+        _consumerArray = FindObjectsOfType<ConsumerStructure>();
+    }
 
 
     private void DebugPath()

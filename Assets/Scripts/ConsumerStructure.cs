@@ -14,24 +14,24 @@ public class ConsumerStructure : Structure
 
 
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         Id = ++NumOfConsumers;
     }
+
 
     private void Start()
     {
         _transportPool = GetComponent<ObjectPool>();
         GenerateProducerAccounts();
         RegisterWithProducer();
-    }//end of method start
+    }
+
 
     private void OnDisable()
     {
         Id = 0;
         --NumOfConsumers;
-        //TODO deregister with account
     }
 
 

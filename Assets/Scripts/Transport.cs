@@ -41,6 +41,11 @@ public class Transport : MonoBehaviour
         StartCoroutine(TraverseRoute());
     }
 
+    /// <summary>
+    /// Transport will move from homebase to closest producer, pickup resources
+    /// and then return home to drop off resources
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator TraverseRoute()
     {
         _producerAccount = _homeBase.GetClosestProducerAccount();
@@ -59,7 +64,7 @@ public class Transport : MonoBehaviour
     /// Follows current path and performs an action when it reaches its destination
     /// </summary>
     /// <param name="finishAction">This is the method you wish to call when the transport
-    /// reaches its destination</param>
+    /// reaches its goal</param>
     /// <returns></returns>
     private IEnumerator FollowPathRoutine(Action finishAction)
     {
@@ -100,8 +105,8 @@ public class Transport : MonoBehaviour
 
     private void DeliverResources()
     {
-        //put back in pool;
         _homeBase.DepositResources(_resourceAmount);
+        _resourceAmount = 0;
         gameObject.SetActive(false);
     }
 

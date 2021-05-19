@@ -15,11 +15,14 @@ public class ProducerStructure : Structure
     
 
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         Id = ++NumOfProducers;
+    }
 
+
+    private void Start()
+    {
         StartCoroutine(ProduceResourceRoutine());
     }
 
@@ -81,5 +84,4 @@ public class ProducerStructure : Structure
         ResourceAmount -= availableAmount;
         return availableAmount;
     }
-
 }

@@ -40,7 +40,6 @@ public class AStarPathfinder : MonoBehaviour
     /// <returns>a Vector3Int Stack of gridcell coordinates</returns>
     public Stack<Vector3Int> GetPathToCell(Vector3Int startPos, Vector3Int goalPos)
     {
-        
         Reset();
 
         _startPos = startPos;

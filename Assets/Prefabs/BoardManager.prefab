@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1686822348685099778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686822348685099779}
+  - component: {fileID: 1686822348685099788}
+  m_Layer: 0
+  m_Name: BoardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1686822348685099779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686822348685099778}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686822348685099788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686822348685099778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e6d5c2c4f2d114e9e97dc7804930b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rows: 256
+  _columns: 256
+  _bordersize: 1
+  _numberOfProducers: 3
+  _numberOfConsumers: 2
+  _grassTile: {fileID: 11400000, guid: 8ff7f74caa847504aa980999060a5bc9, type: 2}
+  _roadTile: {fileID: 11400000, guid: 0fd877de3c52fc5489064d14a301340b, type: 2}
+  _foundationTile: {fileID: 11400000, guid: 8abb9be16092fc44098bff2acbd70307, type: 2}
+  _producerPrefab: {fileID: 2425350875289748818, guid: 3c302a3b0501aaa49a76319ce7530b83, type: 3}
+  _consumerPrefab: {fileID: 6969409304596809045, guid: ad0f8a3e7ce3a044bb485abe30b05487, type: 3}
+  _tilemap: {fileID: 0}
+  _scriptableTileDataList:
+  - {fileID: 11400000, guid: f99e524b20cf6c84fb51ca3417a63ac9, type: 2}
+  - {fileID: 11400000, guid: 4b86ac21e40229b4cb91650a131bf274, type: 2}
+  pathColor: {r: 0.844, g: 0.35154858, b: 0.35154858, a: 0.09411765}

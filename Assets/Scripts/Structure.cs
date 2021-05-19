@@ -8,7 +8,7 @@ public class Structure : MonoBehaviour
     [SerializeField] private int _foundationRadius = 0;
     public int FoundationRadius { get => _foundationRadius; private set => _foundationRadius = value; }
 
-    public Vector3Int CellPosition { get; private set; }
+    public Vector3Int CellPosition { get; set; }
 
     private TextMeshPro resourceDisplay;
 
@@ -32,11 +32,6 @@ public class Structure : MonoBehaviour
         resourceDisplay.text = $"{_resourceAmount}";
     }
 
-    protected virtual void OnEnable()
-    {
-        CellPosition = FindObjectOfType<Tilemap>().WorldToCell(transform.position);
-    }
-
 
     protected virtual void Update()
     {
@@ -44,12 +39,12 @@ public class Structure : MonoBehaviour
     }
 
 
+    /************************* custome methods *******************************/
     private void ToggleLabels()
     {
-        //TODO change this to an input action map
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             resourceDisplay.enabled = !resourceDisplay.IsActive();
         }
     }
-}
+}//end of class Structure

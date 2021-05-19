@@ -11,7 +11,6 @@ public class ObjectPool : MonoBehaviour
 
 
 
-
     private void Awake()
     {
         PopulatePool();
@@ -53,7 +52,5 @@ public class ObjectPool : MonoBehaviour
             }
         return null;
     }
-
-
 
 }//end of class object pool
