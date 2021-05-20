@@ -91,16 +91,14 @@ public class ConsumerStructure : Structure
 
     private void FindNewProducer()
     {
-        Debug.Log($"FindNew: {_producerAccounts.Count}");
         _producerAccounts[0].Producer.OutOfResources -= FindNewProducer;
         _producerAccounts.RemoveAt(0);
-        Debug.Log($"FindNew: {_producerAccounts.Count}");
 
+        //regenerate here to account for future expansions, i.e. being able to add a producer
         GenerateProducerAccounts();
         RegisterWithProducer();
     }
 
     /********************** utility methods ********************************/
-
 
 }//end of class StructureConsumer

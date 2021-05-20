@@ -54,18 +54,6 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        //TODO auto center camera
-
-        //DebugPath();
-
-    }//end of Start
-
-
-
-
-
     
     /**************************** CUSTOM METHODS *********************************/
     private void BuildTiledataDictionary()
