@@ -41,6 +41,8 @@ public class Transport : MonoBehaviour
         StartCoroutine(TraverseRoute());
     }
 
+
+
     /// <summary>
     /// Transport will move from homebase to closest producer, pickup resources
     /// and then return home to drop off resources
@@ -60,6 +62,7 @@ public class Transport : MonoBehaviour
         CalculatePath(_goal);
         yield return StartCoroutine(FollowPathRoutine(DeliverResources));
     }
+
 
 
     /// <summary>
@@ -92,11 +95,13 @@ public class Transport : MonoBehaviour
     }//end of function FollowPathRoutine
 
 
+
     private void CalculatePath(Vector3Int destinationCell)
     {
         _path.Clear();
         _path.AddRange(_pathfinder.GetPathToCell(_tileMap.WorldToCell(transform.position), destinationCell));
     }
+
 
 
     private void PickupResources()
@@ -105,12 +110,14 @@ public class Transport : MonoBehaviour
     }
 
 
+
     private void DeliverResources()
     {
         _homeBase.DepositResources(_resourceAmount);
         _resourceAmount = 0;
         gameObject.SetActive(false);
     }
+
 
 
     private void AbortMission()
@@ -122,11 +129,14 @@ public class Transport : MonoBehaviour
         StartCoroutine(FollowPathRoutine(DeliverResources));
     }
 
+
+
     /********************** utility methods  ******************************/
     private void TeleportToHomeBase()
     {
         transform.position = _tileMap.GetCellCenterWorld(_homeBase.CellPosition);
     }
+
 
 
     private void RotateToDestination(Vector3 destination)

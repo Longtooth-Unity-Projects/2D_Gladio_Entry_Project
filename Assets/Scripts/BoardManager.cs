@@ -16,7 +16,7 @@ public class BoardManager : MonoBehaviour
     public int Rows { get { return _rows; }  }
     public int Columns { get { return _columns; } }
 
-    private Dictionary<TileBase, ScriptableTileWrapper> dataFromTiles;
+    private Dictionary<TileBase, ScriptableTileWrapper> dataFromTilesDict;
 
     //cached references
     [SerializeField] private Tile _grassTile;
@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private List<ScriptableTileWrapper> _scriptableTileDataList;
 
     private AStarPathfinder pathfinder;
-    private List<Vector3Int> availableTiles;
+    private List<Vector3Int> availableTilesList;
 
     //debugging variables
     public Color pathColor;
@@ -43,7 +43,7 @@ public class BoardManager : MonoBehaviour
     {
         BuildTiledataDictionary();
 
-        availableTiles = new List<Vector3Int>(_rows * _columns);
+        availableTilesList = new List<Vector3Int>(_rows * _columns);
         _producerArray = new ProducerStructure[_numberOfProducers];
         _consumerArray = new ConsumerStructure[_numberOfConsumers];
 
@@ -59,12 +59,13 @@ public class BoardManager : MonoBehaviour
     private void BuildTiledataDictionary()
     {
         //associate tiles with scriptable data, using tile as key for lookup
-        dataFromTiles = new Dictionary<TileBase, ScriptableTileWrapper>();
+        dataFromTilesDict = new Dictionary<TileBase, ScriptableTileWrapper>();
 
         foreach (ScriptableTileWrapper tileData in _scriptableTileDataList)
             foreach (TileBase tileBase in tileData.tilesWithTheseTraits)
-                dataFromTiles.Add(tileBase, tileData);
+                dataFromTilesDict.Add(tileBase, tileData);
     }
+
 
 
     private void SetupRandomField()
@@ -81,23 +82,25 @@ public class BoardManager : MonoBehaviour
                 _tilemap.SetTile(tilePos, _grassTile);
 
                 if (x > borderMin && x < colMaxValue && y > borderMin && y < rowMaxValue)
-                    availableTiles.Add(tilePos);
+                    availableTilesList.Add(tilePos);
             }
 
         
         //set up producers
         for (int i = 0; i < _numberOfProducers; ++i)
         {
-            Vector3Int spawnCell = availableTiles[Random.Range(0, availableTiles.Count - 1)];
+            Vector3Int spawnCell = availableTilesList[Random.Range(0, availableTilesList.Count - 1)];
             _producerArray[i] = SpawnStructure(_producerPrefab, spawnCell) as ProducerStructure;
         }
+
         //set up consumers
         for (int i = 0; i < _numberOfConsumers; ++i)
         {
-            Vector3Int spawnCell = availableTiles[Random.Range(0, availableTiles.Count - 1)];
+            Vector3Int spawnCell = availableTilesList[Random.Range(0, availableTilesList.Count - 1)];
             _consumerArray[i] = SpawnStructure(_consumerPrefab, spawnCell) as ConsumerStructure;
         }
     }
+
 
 
     public Structure SpawnStructure(Structure structureToSpawn, Vector3 spawnPosition)
@@ -115,11 +118,11 @@ public class BoardManager : MonoBehaviour
                 {
                     Vector3Int tileCell = new Vector3Int(x, y, foundationCenterCell.z);
                     _tilemap.SetTile(tileCell, _foundationTile);
-                    availableTiles.Remove(tileCell);
+                    availableTilesList.Remove(tileCell);
                 }
         }
 
-        availableTiles.Remove(foundationCenterCell);
+        availableTilesList.Remove(foundationCenterCell);
 
         Structure structure = Instantiate(structureToSpawn);
         structure.transform.position = spawnPosition;
@@ -127,6 +130,8 @@ public class BoardManager : MonoBehaviour
 
         return structure;
     }
+
+
 
     public Structure SpawnStructure(Structure structureToSpawn, Vector3Int spawnPosition)
     {
@@ -194,7 +199,7 @@ public class BoardManager : MonoBehaviour
         if (tile == null)
             return null;
         else
-            return dataFromTiles[tile];
+            return dataFromTilesDict[tile];
     }
 
 
@@ -206,7 +211,7 @@ public class BoardManager : MonoBehaviour
         if (tileAtPos == null)
             return 1f;
 
-        return dataFromTiles[tileAtPos].movementMultiplier;
+        return dataFromTilesDict[tileAtPos].movementMultiplier;
     }
 
 
@@ -217,7 +222,7 @@ public class BoardManager : MonoBehaviour
         if (tileAtPos == null)
             return false;
 
-        return dataFromTiles[tileAtPos].isWalkable;
+        return dataFromTilesDict[tileAtPos].isWalkable;
     }
 
 
@@ -259,7 +264,7 @@ public class BoardManager : MonoBehaviour
             if (clickedTile == null) return;
 
             //this is how we access data for specific tile types
-            float speedHinderance = dataFromTiles[clickedTile].movementMultiplier;
+            float speedHinderance = dataFromTilesDict[clickedTile].movementMultiplier;
 
             Debug.Log($"mousePos: {mousePosition} worldCenterPos: {worldCenterPos} localCenterPos: {localCenterPos} ");
             Debug.Log($"Grid postion {gridPosition} Tile: {clickedTile} SpeedHinderance: {speedHinderance}");

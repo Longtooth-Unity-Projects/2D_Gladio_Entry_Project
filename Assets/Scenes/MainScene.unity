@@ -494,11 +494,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1686822348685099788, guid: cd3d25d8a57ea0e4ba768f035e06d84b, type: 3}
       propertyPath: _rows
-      value: 256
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1686822348685099788, guid: cd3d25d8a57ea0e4ba768f035e06d84b, type: 3}
       propertyPath: _columns
-      value: 256
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 1686822348685099788, guid: cd3d25d8a57ea0e4ba768f035e06d84b, type: 3}
       propertyPath: _tilemap
