@@ -3,7 +3,7 @@
 A project that was required as part of an interview process.
 
 
-### Desing Notes
+### Design Notes
 
 1.	General
 	1.	Controls:
