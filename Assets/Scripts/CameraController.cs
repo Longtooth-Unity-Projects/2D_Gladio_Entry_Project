@@ -30,6 +30,9 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
     private Camera _myCamera;
 
 
+
+
+    //********************* methods **********************************
     private void Awake()
     {
         if (_controls == null)
@@ -38,6 +41,7 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
 
         _myCamera = Camera.main;
     }
+
 
 
     private void Start()
@@ -51,10 +55,12 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
     }
 
 
+
     private void OnEnable()
     {
         _controls.Enable();
     }
+
 
 
     private void Update()
@@ -62,6 +68,7 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
         if (_isMoving)
             Move();
     }
+
 
 
     private void OnDisable()
@@ -85,6 +92,7 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
     }
 
 
+
     private void SetBoundaries(float currentHeight)
     {
         minY = 0 + currentHeight;
@@ -92,6 +100,8 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
         minX = 0 + _widthToHeightRatio * currentHeight;
         maxX = boardColumns - _widthToHeightRatio * currentHeight ;
     }
+
+
 
     private void Move()
     {
@@ -108,6 +118,9 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
 
         transform.position = _newPosition;
     }
+
+
+
 
     /************************ Input Methods ************************/
     public void OnMove(InputAction.CallbackContext context)
@@ -127,6 +140,9 @@ public class CameraController : MonoBehaviour, Input_Actions.IPlayerActions
                 break;
         }
     }
+
+
+
 
     public void OnZoom(InputAction.CallbackContext context)
     {

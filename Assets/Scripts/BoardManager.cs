@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
+
+
 public class BoardManager : MonoBehaviour
 {
     //settings
@@ -39,6 +41,8 @@ public class BoardManager : MonoBehaviour
 
 
 
+
+    //********************* methods **********************************
     private void Awake()
     {
         BuildTiledataDictionary();
@@ -170,17 +174,6 @@ public class BoardManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     /************************** UTILITY METHODS **************************************************/
     public Vector3 GetCenterGridWorldPosition()
     {
@@ -203,6 +196,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
+
     public float GetTileMovementSpeed(Vector2 worldPosition)
     {
         Vector3Int gridPosition = _tilemap.WorldToCell(worldPosition);
@@ -215,7 +209,8 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public bool GetIsWalkable(Vector3Int gridPosition)
+
+    public bool GetTileIsWalkable(Vector3Int gridPosition)
     {
         TileBase tileAtPos = _tilemap.GetTile(gridPosition);
 
@@ -226,11 +221,20 @@ public class BoardManager : MonoBehaviour
     }
 
 
+
+
+
+
+
+
+    //*********************Debugging Code***************************
+
     private void DebugInits()
     {
         _producerArray = FindObjectsOfType<ProducerStructure>();
         _consumerArray = FindObjectsOfType<ConsumerStructure>();
     }
+
 
 
     private void DebugPath()
@@ -249,6 +253,8 @@ public class BoardManager : MonoBehaviour
                     }
             }
     }
+
+
 
     private void DebugInput()
     {

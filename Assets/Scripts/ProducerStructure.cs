@@ -14,19 +14,22 @@ public class ProducerStructure : Structure
     private int _unallocatdResources = 0;
 
     private Queue<ConsumerStructure> consumerQ = new Queue<ConsumerStructure>();
-    
 
 
+
+    //********************* methods **********************************
     private void OnEnable()
     {
         Id = ++NumOfProducers;
     }
 
 
+
     private void Start()
     {
         StartCoroutine(ProduceResourceRoutine());
     }
+
 
 
     private void OnDisable()
@@ -53,6 +56,7 @@ public class ProducerStructure : Structure
     }
 
 
+
     private void NotifyNextConsumer()
     {
         //we only want to go through the queue one time, otherwise if resources are available but there are
@@ -72,6 +76,7 @@ public class ProducerStructure : Structure
     }
 
 
+
     public bool RegisterCustomer(ConsumerStructure consumer)
     {
         if (!consumerQ.Contains(consumer))
@@ -79,6 +84,7 @@ public class ProducerStructure : Structure
 
         return true;
     }
+
 
 
     public int RequestResources(int requestAmount)

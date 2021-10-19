@@ -21,6 +21,10 @@ public class Transport : MonoBehaviour
     private Tilemap _tileMap;
     private AStarPathfinder _pathfinder;
 
+
+
+
+    //********************* methods **********************************
     private void Awake()
     {
         _homeBase = GetComponentInParent<ConsumerStructure>();
@@ -35,7 +39,7 @@ public class Transport : MonoBehaviour
     }
 
 
-/******************* custome methods ************************/
+    /******************* custom methods ************************/
     public void Dispatch()
     {
         StartCoroutine(TraverseRoute());
@@ -76,6 +80,7 @@ public class Transport : MonoBehaviour
         for (int index = 0; index < _path.Count; ++index)
         {
             //TODO update later to have truck move forward from position for smoother transitions
+
             //we want to travel to center of cell
             Vector3 nextPos = _tileMap.GetCellCenterWorld(_path[index]);
 
@@ -113,7 +118,7 @@ public class Transport : MonoBehaviour
 
     private void DeliverResources()
     {
-        _homeBase.DepositResources(_resourceAmount);
+        _homeBase.AdjustResources(_resourceAmount);
         _resourceAmount = 0;
         gameObject.SetActive(false);
     }

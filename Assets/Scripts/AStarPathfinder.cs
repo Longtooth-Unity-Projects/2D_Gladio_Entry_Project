@@ -81,6 +81,7 @@ public class AStarPathfinder : MonoBehaviour
     }
 
 
+
     /// <summary>
     /// finds orthogonal neighbors only and prevents
     /// startNode, unwalkable, and null tiles from being added
@@ -101,7 +102,7 @@ public class AStarPathfinder : MonoBehaviour
                 int yDif = parentPosition.y - neighborPos.y;
 
                 if (Math.Abs(xDif - yDif) % 2 == 1)
-                    if (neighborPos != _startPos && _boardManager.GetIsWalkable(neighborPos) && _tilemap.GetTile(neighborPos))
+                    if (neighborPos != _startPos && _boardManager.GetTileIsWalkable(neighborPos) && _tilemap.GetTile(neighborPos))
                     {
                         AStarNode neighbor = GetNode(neighborPos);
                         neighbors.Add(neighbor);
@@ -110,6 +111,7 @@ public class AStarPathfinder : MonoBehaviour
 
         return neighbors;
     }// end of FindNeighbors()
+
 
 
     /// <summary>
@@ -141,16 +143,18 @@ public class AStarPathfinder : MonoBehaviour
     }//end of ExamineNeighbors
 
 
+
     private void CalcValues(AStarNode neighbor, AStarNode current, int costToGetHereFromParent)
     {
         neighbor.Parent = current;
         neighbor.G = current.G + costToGetHereFromParent;
 
-        //Heuristic Manhatan: calculate vertical and horizontal nodes between between neighbor and goal and multiply by orthogonal movement cost
+        //Heuristic Manhattan: calculate vertical and horizontal nodes between between neighbor and goal and multiply by orthogonal movement cost
         neighbor.H = (Math.Abs((neighbor.CellPosition.x - _goalPos.x)) + Math.Abs((neighbor.CellPosition.y - _goalPos.y))) * _orthogonalMoveCost;
 
         neighbor.F = neighbor.G + neighbor.H;
     }
+
 
 
     //TODO separate the removing of the current and the picking of the new
@@ -204,6 +208,10 @@ public class AStarPathfinder : MonoBehaviour
             _currentNode = _currentNode.Parent;
         }
     }
+
+
+
+
 
     /*************************Utility Methods****************************************/
     private AStarNode GetNode(Vector3Int position)

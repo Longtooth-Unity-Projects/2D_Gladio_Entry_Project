@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +13,12 @@ public class ConsumerStructure : Structure
 
 
 
+    //********************* methods **********************************
     private void OnEnable()
     {
         Id = ++NumOfConsumers;
     }
+
 
 
     private void Start()
@@ -26,6 +27,7 @@ public class ConsumerStructure : Structure
         GenerateProducerAccounts();
         RegisterWithProducer();
     }
+
 
 
     private void OnDisable()
@@ -52,6 +54,7 @@ public class ConsumerStructure : Structure
     }
 
 
+
     private void RegisterWithProducer()
     {
         //currently, we only want to register with the closest customer
@@ -60,10 +63,12 @@ public class ConsumerStructure : Structure
     }
 
 
+
     public bool OrderFilled()
     {
         //we need to let producer know if we are going to pickup
 
+        //TODO pass the dispatch location (producer account) to the transport
         GameObject transportObj = _transportPool.EnableObjectInPool();
         if (transportObj != null)
         {
@@ -72,6 +77,7 @@ public class ConsumerStructure : Structure
         }
         return false;
     }
+
 
     
     public ProducerAccount GetClosestProducerAccount()
@@ -83,10 +89,12 @@ public class ConsumerStructure : Structure
     }
 
 
-    public void DepositResources(int amountToDeposit)
+
+    public void AdjustResources(int amountToAdjust)
     {
-        ResourceAmount += amountToDeposit;
+        ResourceAmount += amountToAdjust;
     }
+
 
 
     private void FindNewProducer()

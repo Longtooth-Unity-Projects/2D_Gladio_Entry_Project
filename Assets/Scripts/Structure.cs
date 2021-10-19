@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using TMPro;
 using UnityEngine.InputSystem;
 
@@ -26,11 +25,13 @@ public class Structure : MonoBehaviour
 
 
 
+    //********************* methods **********************************
     protected virtual void Awake()
     {
         resourceDisplay = GetComponentInChildren<TextMeshPro>();
         resourceDisplay.text = $"{_resourceAmount}";
     }
+
 
 
     protected virtual void Update()
@@ -39,7 +40,10 @@ public class Structure : MonoBehaviour
     }
 
 
-    /************************* custome methods *******************************/
+
+
+
+    /************************* custom methods *******************************/
     private void ToggleLabels()
     {
         if (Keyboard.current.lKey.wasPressedThisFrame)
